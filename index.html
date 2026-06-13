@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niba | Aspiring Fachinformatikerin</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f13;
+      --surface: #17171e;
+      --border: #2a2a36;
+      --accent: #7c6af7;
+      --accent-soft: #a89df9;
+      --text: #e8e8f0;
+      --muted: #8888a8;
+      --tag-bg: #1e1e2e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(15, 15, 19, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--accent-soft);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      color: var(--accent-soft);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #6a58e8; transform: translateY(-1px); }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent-soft); transform: translateY(-1px); }
+
+    /* SECTIONS */
+    section {
+      padding: 5rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* ABOUT */
+    .about-text {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .skill-card .skill-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-card .skill-name {
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .skill-card .skill-level {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* PROJECTS */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+      gap: 1rem;
+    }
+
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .project-link {
+      color: var(--accent-soft);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: 'DM Mono', monospace;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent); }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--accent-soft);
+      font-size: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+    }
+
+    /* CONTACT */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-row .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      min-width: 70px;
+    }
+
+    .contact-row a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-row a:hover { color: var(--accent-soft); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero { padding: 7rem 1.2rem 3rem; }
+      section { padding: 3.5rem 1.2rem; }
+      .project-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">niba.dev</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-label">Based in Berlin, Germany</p>
+    <h1>Hi, I'm <span>Niba</span>.<br/>Aspiring Fachinformatikerin.</h1>
+    <p class="hero-desc">
+      I'm building my path into IT — learning HTML, CSS, and GitHub while working in the social sector in Berlin.
+      My goal is to start an Ausbildung as an IT specialist and grow into a long-term career in tech.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">See my projects</a>
+      <a href="https://github.com/nibanizar" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About me</p>
+    <h2>A little background</h2>
+    <p class="about-text">
+      I'm originally from India and have been living in Berlin, Germany, where I work as a
+      pedagogical assistant at a Kita (Freiwilliges Soziales Jahr). Outside of my day-to-day work,
+      I spend time learning web development and exploring IT. I'm passionate about problem-solving,
+      picking up new tools quickly, and building things from scratch — even if they're small.
+      My German is at B1 level (B2 course in progress), and I'm motivated to start an Ausbildung
+      as a Fachinformatikerin to turn my passion for technology into a career.
+    </p>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Skills</p>
+    <h2>What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">HTML & CSS</div>
+        <div class="skill-level">Basic – actively building</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐙</div>
+        <div class="skill-name">GitHub</div>
+        <div class="skill-level">Version control & pages</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💼</div>
+        <div class="skill-name">MS Office</div>
+        <div class="skill-level">Word, Excel, Outlook</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗣️</div>
+        <div class="skill-name">Languages</div>
+        <div class="skill-level">Malayalam · English B2 · Deutsch B1</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-name">Problem Solving</div>
+        <div class="skill-level">Analytical thinking</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤝</div>
+        <div class="skill-name">Teamwork</div>
+        <div class="skill-level">Cross-cultural experience</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Projects</p>
+    <h2>Things I've built</h2>
+    <div class="projects-list">
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">Personal Portfolio Website</div>
+          <a href="https://nibanizar.github.io/my-portfolio/" target="_blank" class="project-link">Live site ↗</a>
+        </div>
+        <p class="project-desc">
+          Designed and built this portfolio from scratch using HTML and CSS. Deployed and hosted
+          on GitHub Pages as part of my hands-on IT learning journey.
+        </p>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">GitHub Pages</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">Interactive Web Project</div>
+          <a href="https://github.com/nibanizar" target="_blank" class="project-link">GitHub ↗</a>
+        </div>
+        <p class="project-desc">
+          A self-initiated creative project built with HTML and CSS, exploring interactive
+          design and user experience on the web. A fun way to push my skills beyond the basics.
+        </p>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Self-initiated</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <h2>Get in touch</h2>
+    <div class="contact-box">
+      <p>I'm currently looking for an Ausbildung opportunity as a Fachinformatikerin in Germany. Feel free to reach out!</p>
+      <div class="contact-links">
+        <div class="contact-row">
+          <span class="label">email</span>
+          <a href="mailto:nibanizar962@gmail.com">nibanizar962@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="label">github</span>
+          <a href="https://github.com/nibanizar" target="_blank">github.com/nibanizar</a>
+        </div>
+        <div class="contact-row">
+          <span class="label">location</span>
+          <span style="color: var(--muted)">Berlin, Germany</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Fathima Niba Nizar · Built with HTML & CSS
+  </footer>
+
+</body>
+</html>
